@@ -37,6 +37,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .block-hd.posture-hd{color:#b85a20;border-bottom-color:#f4a261}
 .block-time{margin-left:auto;font-size:10px;color:var(--muted)}
 .posture-badge{font-size:9px;background:#fff3e0;color:#b85a20;border:1px solid #f4a261;border-radius:8px;padding:1px 7px;margin-left:6px;font-weight:500}
+.posture-total{font-size:9px;color:#b85a20;margin-left:6px;font-weight:400}
 .ex-card{background:#fff;border-radius:14px;margin-bottom:.5rem;overflow:hidden;border:1px solid rgba(0,0,0,.06)}
 .ex-card.posture-card{border-color:#f4a261;background:#fffaf5}
 .ex-card.done-card{border-color:#2d6a4f;background:#f0faf5}
@@ -114,20 +115,20 @@ const IMGS={
 function e(name,sets,cue,safe,img,posture){return{name,sets,cue,safe:!!safe,img:img||null,posture:!!posture}}
 
 const POSTURE_BLOCK={
-  label:'Fixing Posture Sequence',time:'18 min',posture:true,
+  label:'Fixing Posture Sequence',time:'20 min total',posture:true,
   exs:[
-    e('Mindful Shoulder Circles','7 seg · sentado','Sentado em sukhasana. Círculos de ombros lentos e conscientes.',false,'posture_shoulder_circles',true),
-    e('Angel Wings','3 seg × 8 rep · 2 min','Braços sobem e descem como asas. Abre peito e ativa romboides. Essencial para remada.',false,'posture_angel_wings',true),
-    e('Heart Opener & Easy Twist','2 seg cada posição · 2 min','Do seiza, abre o peito para trás e roda alternadamente. Torácica activa.',false,'posture_heart_opener',true),
-    e('Neck Stretch','4 seg cada lado · 2 min','Mão na cabeça, inclinação lateral suave. 3 posições: lateral, diagonal, frente.',false,'posture_neck',true),
-    e('Thoracic Rotation R+L','1 seg × 10 rep · 2 min','Em quadrupedia, mão na nuca. Rota cotovelo para o tecto. Fundamental para surf.',false,'posture_thoracic',true),
-    e('Extended Puppy Pose','28 seg · 1 min','Anca sobre joelhos, peito e queixo ao chão. Abre toda a cadeia anterior.',false,'posture_puppy',true),
-    e('Sphinx Pose','18 seg · 1 min','Barriga no chão, cotovelos sob os ombros. Extensão lombar suave. Reduz se sentires lombar.',true,'posture_sphinx',true),
-    e('Locust Pose','3 seg × 5 rep · 2 min','Barriga no chão. Levanta peito e pernas. Amplitude pequena.',true,'posture_locust',true),
-    e('Shoulder Bridge','17 seg · 2 min','Barriga para cima, pés no chão. Sobe anca, dedos entrelaçados.',false,'posture_bridge',true),
-    e('Dynamic Camel & Leg Shake','38 seg · 2 min','Em seiza, mão no calcanhar, abre para o lado. Soltar tensão.',false,'posture_camel',true),
-    e('Shoulder Stretch R+L','3 seg cada lado · 2 min','Deitado de lado, braço de cima rota para trás até ao chão.',false,'posture_shoulder_stretch',true),
-    e('Cat Cow (final)','5 seg × 5 rep · 1 min','Fecha com cat-cow lento. Integra todo o movimento da coluna.',false,'posture_cat_cow',true),
+    e('Mindful Shoulder Circles','⏱ 1 min · 7 seg por círculo','Sentado em sukhasana. Círculos de ombros lentos e conscientes. Abre a articulação.',false,'posture_shoulder_circles',true),
+    e('Angel Wings','⏱ 2 min · 3 seg × 8 rep','Braços sobem e descem como asas. Abre peito e ativa romboides. Essencial para remada.',false,'posture_angel_wings',true),
+    e('Heart Opener & Easy Twist','⏱ 2 min · 2 seg cada posição','Do seiza, abre o peito para trás e roda alternadamente. Torácica activa.',false,'posture_heart_opener',true),
+    e('Neck Stretch','⏱ 2 min · 4 seg cada lado','Mão na cabeça, inclinação lateral suave. 3 posições: lateral, diagonal, frente.',false,'posture_neck',true),
+    e('Thoracic Rotation R+L','⏱ 2 min · 1 seg × 10 rep cada lado','Em quadrupedia, mão na nuca. Rota cotovelo para o tecto. Fundamental para surf.',false,'posture_thoracic',true),
+    e('Extended Puppy Pose','⏱ 1 min · 28 seg × 2','Anca sobre joelhos, peito e queixo ao chão. Abre toda a cadeia anterior.',false,'posture_puppy',true),
+    e('Sphinx Pose','⏱ 1 min · 18 seg × 3','Barriga no chão, cotovelos sob os ombros. Extensão lombar suave. Para se sentires lombar — reduz.',true,'posture_sphinx',true),
+    e('Locust Pose','⏱ 2 min · 3 seg × 5 rep × 2 séries','Barriga no chão. Levanta peito e pernas simultaneamente. Amplitude pequena.',true,'posture_locust',true),
+    e('Shoulder Bridge','⏱ 2 min · 17 seg × 4','Barriga para cima, pés no chão. Sobe anca, dedos entrelaçados. Activa glúteos.',false,'posture_bridge',true),
+    e('Dynamic Camel & Leg Shake','⏱ 2 min · 38 seg cada lado','Em seiza, mão no calcanhar, abre lateralmente. Soltar tensão acumulada.',false,'posture_camel',true),
+    e('Shoulder Stretch R+L','⏱ 2 min · 3 seg × 10 rep cada lado','Deitado de lado, braço de cima rota para trás até ao chão. Abre manguito.',false,'posture_shoulder_stretch',true),
+    e('Cat Cow (final)','⏱ 1 min · 5 seg × 5 rep','Fecha com cat-cow lento. Integra todo o movimento da coluna.',false,'posture_cat_cow',true),
   ]
 };
 
@@ -353,7 +354,7 @@ DAYS.forEach((d,di)=>{
 
   d.blocks.forEach(b=>{
     const hdClass=b.posture?'block-hd posture-hd':'block-hd';
-    const badge=b.posture?'<span class="posture-badge">FIXING POSTURE</span>':'';
+    const badge=b.posture?`<span class="posture-badge">FIXING POSTURE</span><span class="posture-total">⏱ ${b.time}</span>`:'';
     html+=`<div class="block"><div class="${hdClass}">${b.label}${badge}<span class="block-time">${b.time}</span></div>`;
     b.exs.forEach((ex,ei)=>{
       const xid=`${d.id}_${b.label.replace(/\W+/g,'')}_${ei}`;
